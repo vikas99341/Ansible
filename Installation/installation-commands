@@ -1,0 +1,34 @@
+Ansible Management node as root user
+------------------------------------
+useradd ansadmin - Add a new user 
+passwd ansadmin - Assign password to ne user
+visudo - Change permission [ansadmin ALL=(ALL)       NOPASSWD: ALL]
+cd /etc/ssh
+nano sshd_config (PasswordAuthentication yes)
+service sshd reload
+sudo amazon-linux-extras install ansible2 - Install Ansible
+ansible --version
+cd /etc/ansible/
+nano hosts - Add the ansible worker node ip to be managed 
+su ansadmin - Change user
+
+Ansible Management node as ansadmin user
+----------------------------------------
+cd
+ssh-keygen - Generate public and private key 
+cd .ssh - check the keys generated
+ssh-copy-id ansadmin@172.31.25.99 - Copy public key to ansible worker node
+ssh 'ansadmin@172.31.25.99' - check if ssh connected
+
+ansible all -m ping - check ansible is working ---
+
+
+Ansible Worker node as root user
+--------------------------------
+useradd ansadmin - Add a new user 
+passwd ansadmin - Assign password to ne user
+visudo - Change permission [ansadmin ALL=(ALL)       NOPASSWD: ALL]
+cd /etc/ssh
+nano sshd_config (PasswordAuthentication yes)
+service sshd reload
+ip addr - check the private ip address
