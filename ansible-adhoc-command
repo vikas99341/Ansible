@@ -1,0 +1,14 @@
+ansible all -m ping -- > Check connectivity between master and worker nodes
+ansible test-server -m setup -- > collect ansible facts of worker nodes
+ansible test-server -m file -a "dest=/home/ansadmin/test-file state=directory"  -- > Create new directory on worker machine
+ansible test-server -m file -a "dest=/home/ansadmin/test-file state=absent" -- > Delete the directory from worker machine
+ansible test-server -m shell -a "uptime"
+ansible test-server -m shell -a "df -h "
+ansible test-server -m shell -a "mkdir test-server"
+ansible test-server -m shell -a "rmdir test-server"
+ansible test-server -m copy -a "src=/etc/ansible/sample.txt dest=/home/ansadmin" --> copy file from source to destination(remote server)
+ansible test-server -m yum -a "name=httpd state=present" -b -- > Install a software (httpd) on remote machine
+ansible test-server -m service -a "name=httpd state=started" -b -- > start the service on worker node
+ansible test-server -m user -a "name=vikas" -b --> Create a new user
+ansible test-server -m user -a "name=vikas state=absent" -b --> delete the user
+ansible test-server -a "/sbin/reboot" -b  --> reboot command
