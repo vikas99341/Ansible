@@ -1,0 +1,5 @@
+Commands to run playbook
+
+ansible-playbook install-httpd --check -b -- Just check
+ansible-playbook install-httpd -b --limit 172.31.25.99 -- > limit your execution
+ansible-playbook install-httpd -b --> executing with root privledge
