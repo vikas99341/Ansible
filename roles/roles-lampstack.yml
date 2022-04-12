@@ -1,0 +1,7 @@
+---
+- hosts: test-server
+  remote_user: ansadmin
+
+  roles:
+    - install 
+    - copy 
