@@ -1,44 +1,33 @@
-
 ---
-- hosts: testservers
-  remote_user: root
-
+- hosts: test-server
+  remote_user: ansadmin
 
   tasks:
     - name: Installing Apache, MYSQL DB Community edition & PHP
-      yum: 
-        name: 
+      yum:
+        name:
           - httpd
-          - mysql-community-server
-          - mysql-community-client
-          - php 
+          - php
           - php-mysql
         state: installed
 
     - name: Enabling httpd service and start the service
-      service: 
+      service:
         name: httpd
         enabled: yes
         state: started
 
-    - name: Enabling mysql service and start the service
-      service: 
-        name: mysqld
-        enabled: yes
-        state: started
-            
-    
     - name: Copying your php file in the /var/www/html
       copy:
-        src: /root/ansibleplaybook/index.php
+        src: /etc/ansible/index.php
         dest: /var/www/html/index.php
         force: yes
-        
-      notify: 
+
+      notify:
           - restart httpd service
 
   handlers:
     - name: restart httpd service
-      service: 
+      service:
         name: httpd
         state: restarted
