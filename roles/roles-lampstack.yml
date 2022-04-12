@@ -3,5 +3,5 @@
   remote_user: ansadmin
 
   roles:
-    - install 
-    - copy 
+    - install
+    - copy

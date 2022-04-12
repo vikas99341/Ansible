@@ -1,0 +1,9 @@
+---
+# tasks file for copy
+- name: Copying your php file in the /var/www/html
+  copy:
+    src: /etc/ansible/index.php
+    dest: /var/www/html/index.php
+    force: yes
+  notify: 
+      - restart httpd service

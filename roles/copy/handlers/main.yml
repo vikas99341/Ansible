@@ -1,0 +1,6 @@
+---
+# handlers file for copy
+- name: restart httpd service
+  service: 
+    name: httpd
+    state: restarted
