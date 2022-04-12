@@ -1,0 +1,45 @@
+cd roles
+sudo ansible-galaxy init install
+sudo yum install tree -y
+
+tree install
+
+install
+├── defaults
+│   └── main.yml
+├── files
+├── handlers
+│   └── main.yml
+├── meta
+│   └── main.yml
+├── README.md
+├── tasks
+│   └── main.yml -- pasted my tasks
+├── templates
+├── tests
+│   ├── inventory
+│   └── test.yml
+└── vars
+    └── main.yml
+
+
+
+sudo ansible-galaxy init copy
+copy
+├── defaults
+│   └── main.yml
+├── files
+├── handlers
+│   └── main.yml -- copied handler
+├── meta
+│   └── main.yml
+├── README.md
+├── tasks
+│   └── main.yml -- copied from playbook
+├── templates
+├── tests
+│   ├── inventory
+│   └── test.yml
+└── vars
+    └── main.yml
+
