@@ -1,0 +1,22 @@
+---
+- name: Server Details
+  hosts: test-server
+  remote_user: ansadmin
+  vars_files:
+    - secrets.yml
+
+  tasks:
+  - name: Remove httpd
+    yum: pkg=httpd state=absent
+
+  - name: Install httpd
+    yum: pkg=httpd state=present
+    
+save the above file and create secrets.yml file with the below command:
+ sudo ansible-vault create secrets.yml provide password when prompted
+ 
+ while running playbook if you get permission denied error change the file permission.
+ 
+ Finally execute the playbook using command :
+ 
+ ansible-playbook --ask-vault httpd-files.yml -b
