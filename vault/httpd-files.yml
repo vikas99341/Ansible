@@ -16,7 +16,7 @@ save the above file and create secrets.yml file with the below command:
  sudo ansible-vault create secrets.yml provide password when prompted
  
  while running playbook if you get permission denied error change the file permission.
+ sudo chown ansadmin:ansadmin /etc/ansible/secrets.yml
  
  Finally execute the playbook using command :
- 
  ansible-playbook --ask-vault httpd-files.yml -b
