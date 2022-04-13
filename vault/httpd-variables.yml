@@ -1,0 +1,21 @@
+---
+- name: Server Details
+  hosts: test-server
+  remote_user: ansadmin
+  vars:
+    - ansible_sudo_pass: password
+  tasks:
+  - name: Remove httpd
+    yum: pkg=httpd state=absent
+
+  - name: Install httpd
+    yum: pkg=httpd state=present
+    
+ execution command: ansible-playbook httpd-variables.yml -b
+ 
+ To avoid exposure of my password i will encrypt variables.yml
+ Command: sudo ansible-vault encrypt httpd-variables.yml 
+          provide password when prompted == > Encryption successful
+          
+You will permission denied but still if you want to run decrypt and execute but still there will be error
+ 
