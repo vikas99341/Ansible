@@ -1,0 +1,14 @@
+---
+- name: Server Details
+  hosts: test-server
+  remote_user: ansadmin
+
+  tasks:
+  - name: Remove httpd
+    yum: pkg=httpd state=absent
+
+  - name: Install httpd
+    yum: pkg=httpd state=present
+
+
+ansible-playbook install-httpd.yml -b 
