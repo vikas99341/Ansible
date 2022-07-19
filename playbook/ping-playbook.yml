@@ -1,0 +1,6 @@
+---
+ - name: ping-playbook
+   hosts: test-server
+   tasks:
+     - name: Laerning ping module
+       ping:
