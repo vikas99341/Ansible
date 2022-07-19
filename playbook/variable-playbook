@@ -1,0 +1,13 @@
+---
+ - name: variable-playbook
+   hosts: test-server
+   vars:
+     name: vikas
+     number: 45
+   tasks:
+     - name: using debug module
+       debug:
+         msg: "The value of number is: {{number}}"
+     - name: using debug module for name
+       debug:
+         msg: "Hello {{name}} !!!"
