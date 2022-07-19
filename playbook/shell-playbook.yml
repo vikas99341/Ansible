@@ -1,0 +1,10 @@
+---
+ - name: shell-playbook
+   hosts: test-server
+   tasks:
+     - name: system running duration
+       shell: uptime
+       register: command_output
+
+     - debug:
+             var: command_output.stdout_lines
