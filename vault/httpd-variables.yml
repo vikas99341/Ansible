@@ -23,5 +23,5 @@ To view the file : ansible-vault view httpd-files.yml
 
 To edit the file : sudo ansible-vault edit httpd-files.yml
 
-To decrypt the file : ansible-vault decrypt --ask-vault-pass httpd-files.yml
+To decrypt the file : sudo ansible-vault decrypt --ask-vault-pass httpd-files.yml
  
