@@ -18,4 +18,10 @@
           provide password when prompted == > Encryption successful
           
 You will permission denied but still if you want to run decrypt and execute but still there will be error
+
+To view the file : ansible-vault view httpd-files.yml
+
+To edit the file : sudo ansible-vault edit httpd-files.yml
+
+To decrypt the file : ansible-vault decrypt --ask-vault-pass httpd-files.yml
  
