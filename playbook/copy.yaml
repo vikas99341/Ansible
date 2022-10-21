@@ -1,0 +1,10 @@
+---
+ - hosts: test-server
+   become: true
+   tasks:
+     - name: Copy sample.txt to test-server
+       copy: src=/etc/ansible/sample.txt
+             dest=/home/ansadmin
+             owner=root 
+             group=root 
+             mode=0666
