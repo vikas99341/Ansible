@@ -1,0 +1,43 @@
+---
+- hosts: Prod
+  become: true
+  become_user: root
+  tasks:
+          - name: Mount the OS Media Drive
+            command: mount /dev/sr0 /mnt
+          - name: Copy the local repo file
+            copy:
+                    src: /home/sverma/ansible/server.repo
+                    dest: /etc/yum.repos.d
+          - name: Installing Multiple Packages
+            yum:
+                    name: "{{ item }}"
+                    state: latest
+            with_items:
+                    - vsftpd
+                    - httpd
+                    - postfix
+                    - dovecot
+          - name: Start & Enable VSFTPD Service
+            service:
+                    name: vsftpd
+                    state: started
+                    enabled: true
+          - name: Start & Enable HTTPD Service
+            service:
+                    name: httpd
+                    state: started
+                    enabled: true
+          - name: Create Web Content
+            copy:
+                    src: /home/sverma/roles/myvhost/files/html
+                    dest: /var/www/vhosts/{{ ansible_hostname }}
+            notify:
+                    - restart_httpd
+
+# Handlers for restarting httpd
+           handlers
+             - name: restart_httpd
+               service:
+                       name: httpd
+                       start: restarted
