@@ -13,3 +13,15 @@
        - vim
        - zip
        - unzip
+---
+---
+- hosts: test-server
+  become: yes
+  tasks:
+    - name: Install list of packages
+      yum:
+        name: "{{ item }}"
+        state: latest
+     with_items:
+      - postfix
+      - dovecot
