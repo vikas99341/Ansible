@@ -1,0 +1,68 @@
+config_ssh.j2:
+--------------
+{% for host in groups['all'] %} 
+ Host {{ host }}
+   User {{ remote_user }}
+   IdentityFile {{ lookup('env','HOME') + '/.ssh/' + remote_user }}
+   Hostname {{ hostvars[host]['ansible_host'] }}
+   ServerAliveInterval 120
+{% endfor %}
+
+inventory:
+==========
+[web]
+web1 ansible_host=172.20.1.100 ansible_ssh_pass=Passw0rd ansible_user=root
+web2 ansible_host=172.20.1.101 ansible_ssh_pass=Passw0rd ansible_user=root
+
+[all:vars]
+remote_user=ansadmin
+
+playbook.yml:
+============
+- name: create remote user
+  hosts: all
+  become: yes
+  vars_prompt:
+    - name: password
+      prompt: 'Password? '
+      private: yes
+      encrypt: sha512_crypt
+      confirm: yes
+
+  tasks:
+    - name: create the user
+      user:
+        name: '{{ remote_user }}'
+        state: present
+        groups: "{{ (ansible_os_family == 'Ubuntu') | ternary('sudo', 'wheel') }}"
+        shell: /bin/bash
+        password: "{{ password }}"
+
+- name: generate SSH key for the current user on localhost
+  hosts: localhost
+  tasks:
+    - name: generate SSH key
+      user:
+        name: '{{ ansible_env.USER }}'
+        state: present
+        generate_ssh_key: yes
+        ssh_key_file: .ssh/{{ remote_user }}
+
+- name: distribute SSH key to all hosts
+  hosts: all
+  become: yes
+  tasks:
+    - name: copy key to all hosts
+      authorized_key:
+        user: '{{ remote_user }}'
+        state: present
+        key: "{{ lookup('file', lookup('env','HOME') + '/.ssh/' + remote_user + '.pub') }}"
+
+- name: Configure host names in ssh config file '~/.ssh/config'
+  hosts: localhost
+  become: yes
+  tasks:
+    - name: Configure SSH from the template
+      template:
+        src: config_ssh.j2
+        dest: "{{ lookup('env','HOME') + '/.ssh/config' }}"
