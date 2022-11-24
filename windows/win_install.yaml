@@ -1,0 +1,12 @@
+---
+- name: win_chocolatey module demo
+  hosts: win
+  gather_facts: false
+  vars:
+    - packages:
+      - python
+  tasks:
+    - name: install packages
+      chocolatey.chocolatey.win_chocolatey:
+        name: "{{ packages }}"
+        state: present
