@@ -1,0 +1,8 @@
+More information on Dynamic Inventories: 
+https://docs.ansible.com/ansible/latest/user_guide/intro_dynamic_inventory.html
+
+Link to ec2.py: 
+https://raw.githubusercontent.com/ansible/ansible/stable-1.9/plugins/inventory/ec2.py
+
+Link to ec2.ini: 
+https://raw.githubusercontent.com/ansible/ansible/stable-1.9/plugins/inventory/ec2.ini
