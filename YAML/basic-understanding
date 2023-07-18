@@ -1,0 +1,65 @@
+YAML is the abbreviated form of “YAML Ain’t markup language” and is a data serialization language that is designed to be human-friendly and works well with other programming languages for everyday tasks.
+
+LIST & Dictionary
+one.yaml:
+--------
+items:
+  - banana: 12
+  - orange: 2
+  - strawberry: 5
+  - broccoli: 1
+  - carrot: 3
+  - tomato: 3
+  
+two.yaml:
+--------
+purchased:
+	fruits:
+		apple: 1
+		grapes: 5
+	need-to-buy:
+		- coffee
+		- tea
+		- milk
+		
+practise:
+=========
+# Sort the items by catagory and by colour
+# Add a total at the end
+
+items:
+  - banana
+  - orange
+  - strawberry
+  - broccoli
+  - cabbage
+  - grapes
+  - carrot
+  - tomato
+  - peppers
+  - watermelon
+  - lettuce
+
+fruit:
+  red:
+	- strawberry
+  green:
+	- grapes
+	- watermelon
+  orange:
+	- orange
+  yellow:
+	- banana
+  total: 6
+veg:
+  red:
+	- tomato
+  green:
+	- lettuce
+	- cabbage
+	- broccoli
+  orange:
+	- carrot
+  yellow:
+	- peppers
+  total: 6	
