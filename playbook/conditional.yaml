@@ -35,3 +35,41 @@
          name: httpd
          state: started
       when: ansible_distribution == 'Amazon'
+
+=============================================================================================
+---
+- hosts: test-server
+  tasks:
+    - name: stop nginx if running 
+      service:
+          name: nginx
+          state: stopped
+          
+    - name: uninstall nginx if already installed on ubuntu
+      apt: 
+          name: nginx 
+          state: absent
+      when: ansible_os_family == "ubuntu" and ansible_distribution_version == "20.04"
+
+    - name: uninstall nginx on redhat/amazon
+      apt: 
+          name: nginx 
+          state: absent
+      when: ansible_os_family == "Redhat" || ansible_os_family == "Amazon"
+      
+    - name: install nginx on ubuntu
+      apt: 
+          name: nginx 
+          state: present
+      when: ansible_os_family == "ubuntu" and ansible_distribution_version == "20.04"
+      
+    - name: install nginx on redhat/amazon
+      apt: 
+          name: nginx 
+          state: present
+      when: ansible_os_family == "Redhat" || ansible_os_family == "Amazon"
+      
+    - name: start nginx service
+      service:
+          name: nginx
+          state: started
