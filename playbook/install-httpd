@@ -9,3 +9,18 @@
 
   - name: Install httpd
     yum: pkg=httpd state=present
+
+  - name: Execute shell command date
+    command: date
+
+  - name: Execute shell script
+    script: test_script.sh
+    
+  - name: display content 
+    command: cat /home/ansadmin/sample.txt
+    
+  - name: display content by changing dir
+    command: cat sample.txt chdir=/home/ansadmin
+    
+  - name: makes
+    command: mkdir /home/ansadmin/new-dir creates=/home/ansadmin/new-dir
