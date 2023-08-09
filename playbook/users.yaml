@@ -1,0 +1,68 @@
+---
+- name: Create users
+  hosts: test-server
+  remote_user: ansadmin
+
+  tasks:
+  - var: item=joe
+    user: name= "{{ item }}"  state= present
+
+  - var: item=goerge
+    user: name= "{{ item }}"  state= present
+
+  - var: item=sam
+    user: name= "{{ item }}"  state= present 
+
+---
+- name: Create users
+  hosts: test-server
+  remote_user: ansadmin
+
+  tasks:
+   - user: name= "{{ item }}"  state= present
+     loop:
+       - joe
+       - gorge
+       - ravi
+       - mani
+       - kiran
+       - mike
+       - rani
+       
+---
+- name: Create users
+  hosts: test-server
+  remote_user: ansadmin
+
+  tasks:
+  - var: 
+      item: joe
+      uid: 1010
+    user: name= '{{ item.name }}'  state= present uid='{{ item.uid}}'
+
+  - var: 
+      item: goerge
+      uid: 1011
+    user: name= '{{ item.name }}'  state= present uid='{{ item.uid}}'
+
+  - var: 
+      item: ravi
+      uid: 1012
+    user: name= '{{ item.name }}'  state= present uid='{{ item.uid}}'
+
+
+---
+- name: Create users
+  hosts: test-server
+  remote_user: ansadmin
+
+  tasks:
+   - user: name= "{{ item.name }}"  state= present  name= "{{ item.name }}"
+     loop:
+       - joe
+       - gorge
+       - ravi
+       - mani
+       - kiran
+       - mike
+       - rani
