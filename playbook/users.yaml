@@ -1,4 +1,14 @@
 ---
+ - name: Create users
+   hosts: test-server
+   remote_user: ansadmin
+
+   tasks:
+    - name: Add user
+      user:
+       name: joe
+creates one user
+---
 - name: Create users
   hosts: test-server
   remote_user: ansadmin
