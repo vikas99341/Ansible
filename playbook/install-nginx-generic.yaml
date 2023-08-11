@@ -1,0 +1,50 @@
+---
+- hosts: test-server
+  become: yes
+  tasks:
+    - name: stop nginx if running on amazon-linux
+      command: "sudo systemctl disable nginx.service"
+      ignore_errors: true
+      when: ansible_distribution == 'Amazon'
+
+    - name: start nginx on amazon-linux
+      command: "sudo yum update && sudo amazon-linux-extras install nginx1"
+      when: ansible_distribution == 'Amazon'
+
+    - name: stop nginx if running on ubuntu server
+      service:
+          name: nginx
+          state: stopped
+      ignore_errors: true
+      when: ansible_distribution == 'Ubuntu'
+
+    - name: uninstall nginx if already installed on ubuntu server
+      apt:
+          name: nginx
+          state: absent
+      when: ansible_distribution == 'Ubuntu'
+
+    - name: install nginx on ubuntu
+      apt:
+          name: nginx
+          state: present
+      when: ansible_distribution == 'Ubuntu'
+
+    - name: stop nginx if running on RedHat server
+      service:
+          name: nginx
+          state: stopped
+      ignore_errors: true
+      when: ansible_distribution == 'RedHat'
+
+    - name: uninstall nginx if already installed on RedHat server
+      yum:
+          name: nginx
+          state: absent
+      when: ansible_distribution == 'RedHat'
+
+    - name: install nginx on RedHat
+      yum:
+          name: nginx
+          state: present
+      when: ansible_distribution == 'RedHat'
