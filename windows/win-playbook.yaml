@@ -1,0 +1,22 @@
+---
+- name: Manage Windows
+  hosts: win
+  tasks:
+  - name: Create directory structure
+    win_file:
+      path: C:\Temp\folder
+      state: directory
+
+  - name: Touch a file
+    win_file:
+      path: C:\Temp\folder\foo.txt
+      state: touch
+
+  - win_stat:
+      path: C:\temp\folder\foo.txt
+      get_checksum: yes
+      checksum_algorithm: md5
+    register: md5_checksum
+
+  - debug:
+      var: md5_checksum.stat.checksum
