@@ -1,0 +1,39 @@
+Remove the Password from the inventory file (Optional)
+======================================================
+https://docs.ansible.com/ansible/latest/network/getting_started/first_inventory.html#protecting-sensitive-variables-with-ansible-vault
+======================================================================================================================================
+To make the Ansible code safe from a security point of view, we need to remove the password for the Windows Administrator.
+We'll use Ansible-vault to encrypt the password and move the password into a specific variables file. We'll also create another file outside of our Ansible code to hold the vault password (The password used by Ansible to decrypt the password)
+Create a variable file to hold the password. I’ll do it in the default location. Win is the group name so if we create a win.yml, any variables will get picked up by the win group in the inventory :
+
+mkdir group_vars
+vi group_vars/win.yml
+
+Encrypt the password string:
+ansible-vault encrypt_string 'Administrator_user_password' --name ansible_password
+
+USE PASSWORD: Password123
+
+Take the output and add it to group_vars/win.yml
+
+Because the variable is in the default location (group_vars) it will be picked up in the run because it’s called win.yml – it’s a group variable.
+
+Remove the password from the inventory file. * Delete the password line from the hosts.ini file.
+
+Run the playbook.
+
+ansible-playbook -i hosts.ini windows.yml --ask-vault-pass Enter the password to open the vault.
+
+Finally, add the vault password to a file and reference it in ansible.cfg file.
+vi open_vault.txt
+Password123
+
+vi ansible.cfg
+[defaults]
+vault_password_file= open_vault.txt
+Re-run Ansible but this time remove ask-vault-pass.
+ansible-playbook -i hosts.ini windows.yml
+
+Issue:
+I’m getting this error {“msg”:”winrm or requests is not installed: cannot import name certs”} can you please tell me what should I do to fix this!!
+ChCheck outhis article and see if it helps you to resolve your problem: https://access.redhat.com/solutions/3356681
