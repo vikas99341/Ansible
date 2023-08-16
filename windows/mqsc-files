@@ -1,0 +1,12 @@
+---
+- name: Windows Test Playbook
+  hosts: win
+  tasks:
+    - name: Remote Execute the mqsc files
+      win_shell: |
+        hostname
+        Get-Date
+      register: scriptoutput
+
+    - name: Script output
+      debug: var=scriptoutput.stdout
