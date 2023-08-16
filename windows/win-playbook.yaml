@@ -12,6 +12,11 @@
       path: C:\Temp\folder\foo.txt
       state: touch
 
+  - name: Create a file from a Jinja2 template
+    win_template:
+      src: foo.txt.j2
+      dest: C:\temp\folder\foo.txt
+
   - win_stat:
       path: C:\temp\folder\foo.txt
       get_checksum: yes
@@ -20,3 +25,11 @@
 
   - debug:
       var: md5_checksum.stat.checksum
+      
+Create the template file and add content
+nano foot.txt.j2
+
+Hi, this server is caller "{{ ansible_hostname }}"
+Ansible_hostname is an Ansible fact that is available by default in Ansible
+
+ansible-playbook -i hosts.ini windows.yml -- > Ansible will run and create the directories and files we asked it to.
