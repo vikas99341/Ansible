@@ -1,5 +1,5 @@
 # Enable PowerShell remoting
-Enable-PSRemoting Force
+Enable-PSRemoting -Force
 
 # Set WinRM service startup type to automatic
 Set-Service WinRM -StartupType 'Automatic'
