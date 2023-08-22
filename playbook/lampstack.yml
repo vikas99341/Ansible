@@ -1,6 +1,5 @@
 ---
-- hosts: test-server
-  remote_user: ansadmin
+- hosts: all
 
   tasks:
     - name: Installing Apache, MYSQL DB Community edition & PHP
