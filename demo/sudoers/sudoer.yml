@@ -1,0 +1,12 @@
+---
+- hosts: test-server
+  become: true
+  become_user: root
+  tasks:
+  - name: Add Entry in Sudoers file
+    lineinfile:
+      path: /etc/sudoers
+      state: present
+      backup: yes
+      line: 'mssg'
+      validate: '/usr/sbin/visudo -cf %s'

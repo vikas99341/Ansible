@@ -1,0 +1,21 @@
+---
+- hosts: abcz
+  become: true
+  become_user: root
+  vars:
+    password: psw
+    userid: usrid
+    username: usernme
+  tasks:
+  - name: User Exist
+    shell: id {{ username }}
+    register: user_exist
+    ignore_errors: yes
+  - debug: msg="User Name {{ username }} is not existing  on {{ ansible_hostname }}"
+    when: user_exist.rc != 0
+  - name: Password Reset
+    user: name={{ username }} update_password=always password={{ password }}
+    when: user_exist.rc == 0
+    register: usercreation
+  - debug: msg="Password has been reset for user {{ username }} on {{ ansible_hostname }}"
+    when: usercreation.changed

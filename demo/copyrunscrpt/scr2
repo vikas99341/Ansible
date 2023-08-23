@@ -1,0 +1,38 @@
+#!/bin/bash
+BIRed='\033[1;91m'        # Red
+BIGreen='\033[1;92m'      # Green
+BIYellow='\033[1;93m'     # Yellow
+BIBlue='\033[1;94m'       # Blue
+BIPurple='\033[1;95m'     # Purple
+BICyan='\033[1;96m'       # Cyan
+NORMAL="\033[0;39m"
+clear
+date|awk '{print $1$4}' | sed 's/://g' > /tmp/tt 2> /dev/null
+tme=`cat /tmp/tt`
+echo -e $BIPurple"#############################################################################" $NORMAL
+echo -e $BIGreen"Please copy and paste the script or any set of commands and then press Ctrl D" $NORMAL
+echo -e $BIPurple"#############################################################################" $NORMAL
+cat > /tmp/"$tme"
+chmod 777 /tmp/"$tme"
+cat copy_run_scr_new.yml | sed "s/test/$tme/g" > copy_run_scr1.yml
+cat copy_run_norm_scr_new.yml| sed "s/test/$tme/g" >copy_run_norm_scr1.yml
+echo -e $BIPurple"Please select your choice from below menu" $NORMAL
+echo -e $BIPurple"Press "y" if you want to run the scripts as root" $NORMAL
+echo -e $BIPurple"Press "n" run as normal user" $NORMAL
+echo -e $BIPurple"press "x" for exist" $NORMAL
+read y
+case $y in
+y)
+ansible-playbook copy_run_scr1.yml -K 
+;;
+n)
+ansible-playbook copy_run_norm_scr1.yml
+;;
+x)
+exit
+;;
+*)
+  echo "Invalid input , Please enter correct choice "
+;;
+esac
+

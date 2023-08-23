@@ -1,0 +1,16 @@
+Red='\033[1;91m'        # Red
+BIGreen='\033[1;92m'      # Green
+BIYellow='\033[1;93m'     # Yellow
+BIBlue='\033[1;94m'       # Blue
+BIPurple='\033[1;95m'     # Purple
+BICyan='\033[1;96m'       # Cyan
+NORMAL="\033[0;39m"
+
+echo -e $BIPurple"Enter the user name"$NORMAL
+read usr
+cat scr24.sh | sed "s/unme/$usr/g" > scr24_new.sh
+mv scr24_new.sh /tmp
+chmod 777 /tmp/scr24_new.sh
+cat copy_run.yml | sed "s~test~scr24_new.sh~g"|sed "s/unme/$usr/g" > copy_run_scr1.yml
+ansible-playbook copy_run_scr1.yml
+echo -e $BIPurple"User details has been copied '/etc/ansible/demo/usercreation/userdetails/details'"$NORMAL

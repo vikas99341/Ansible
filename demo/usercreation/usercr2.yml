@@ -1,0 +1,26 @@
+---
+- hosts: test-server
+  become: true
+  become_user: root
+  vars:
+    password: $6$2u.MW22rkemc1XqT$c7GqRxtGZ9s1d5on7wyiThhEguGgctoLW.X2CZS21Etgea2.l0UnU8YxDm2/uhSiVatSUwa0yhzyXxbzSAOXC/
+    userid: 1005
+    sgrp: ansadmin
+    comments: dev user
+    username: vikas
+    pgrp: ansadmin
+    hme: 
+  tasks:
+  - name: User Exist
+    shell: id {{ username }}
+    register: user_exist
+    ignore_errors: yes
+  - debug: msg="User Name {{ username }} is already existing  on {{ ansible_hostname }}"
+    when: user_exist.rc == 0
+
+  - name: User Creation
+    user: name={{ username }} uid={{ userid }} home={{ hme }} comment={{ comments }} password={{ password }} group={{pgrp}} groups={{ sgrp }} append=yes
+    when: user_exist.rc != 0
+    register: usercreation
+  - debug: msg="User Name {{ username }} has been created on {{ ansible_hostname }}"
+    when: usercreation.changed

@@ -1,0 +1,10 @@
+---
+- hosts: test-server
+  become: true
+  become_user: root
+  vars:
+   grpnme: abcd
+   gidnum: gidvalue
+  tasks:
+    - name: Group Add Tasks
+      group: name={{grpnme}} gid={{gidnum}} state=present

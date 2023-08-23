@@ -1,0 +1,20 @@
+---
+- hosts: scr24_new.sh-server
+  become: true
+  become_user: root
+  tasks:
+    - name: Transfer the script
+      copy: src=/tmp/scr24_new.sh dest=/tmp/scr24_new.sh mode=0777
+      register: result_copy
+
+    - name: Execute the script and verification script
+      script: /tmp/scr24_new.sh
+      register: result_run
+   # - debug: var=result_run.stdout_lines
+    - name: Fetching the User Details
+      fetch:
+        src: /tmp/cscdxc1155
+        dest: /etc/ansible/demo/usercreation/userdetails/details/vikas-{{ inventory_hostname }}
+        register: output
+        ignore_errors: yes
+        flat: yes

@@ -1,0 +1,9 @@
+echo -e "Enter the User's name"
+read usr
+echo -e "Enter the New password"
+python -c "from passlib.hash import sha512_crypt; import getpass; print sha512_crypt.encrypt(getpass.getpass())"
+echo "Copy and paste the encrypted password below & press contrl D"
+cat > /tmp/pss
+pss=`cat /tmp/pss`
+cat usercr1.yml| sed "s/usernme/$usr/g" | sed "s~psw~$pss~" > usercr2.yml
+ansible-playbook usercr2.yml

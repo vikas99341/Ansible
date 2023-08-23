@@ -1,0 +1,4 @@
+echo -e "Enter the line which needs to be added into sudoers file"
+read msg
+cat sudoer.yml | sed "s~mssg~$msg~g" > sudoers1.yml
+ansible-playbook sudoers1.yml

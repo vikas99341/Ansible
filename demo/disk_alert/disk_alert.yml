@@ -1,0 +1,19 @@
+---
+- hosts: abcz
+  become: true
+  become_user: root
+  tasks:
+    - name: run the script
+      script: /etc/ansible/demo/disk_alert/scrp9.sh
+      register: output
+    - name: fetch the file
+      fetch:
+       src: '/tmp/{{ item.src }}' 
+       dest: /etc/ansible/demo/disk_alert/details/{{ inventory_hostname }}-{{ item.dest }}
+       flat: yes
+      with_items:
+       - { src: 'Stale_lvols', dest: 'Stale_lvols' }
+       - { src: 'Failed_Disks', dest: 'Failed_Disks' }
+       - { src: 'sys_err', dest: 'sys_err' }
+    - debug:
+       msg: "Dsik Alert reports has been copied to /etc/ansible/demo/disk_alert/details"
