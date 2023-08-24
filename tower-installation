@@ -1,0 +1,32 @@
+computingforgeeks.com/install-and-configure-ansible-tower-on-centos-rhel
+
+curl -k -O https://releases.ansible.com/ansible-tower/setup/ansible-tower-setup-3.8.2-1.tar.gz
+
+
+    1  sudo su -
+    2  sudo yum -y update
+    3  sudo yum -y install epel-release
+    4  mkdir /tmp/tower && cd  /tmp/tower
+    5  curl -k -O https://releases.ansible.com/ansible-tower/setup/ansible-tower-setup-3.8.2-1.tar.gz
+    6  ls -l
+    7  tar -xvzf ansible-tower-setup-3.8.2-1.tar.gz
+    8  cd ansible-tower-setup-3.8.2-1
+    9  vi inventory
+   10  ./setup.sh
+   11  sudo ./setup.sh
+   12  cd /tmp/tower
+   13  ls -l
+   14  cd ansible-tower-setup-3.8.2-1/
+   15  ls -l
+   16  vi inventory
+   17  history
+supervisorctl status
+ansible-tower-service start
+
+https://computingforgeeks.com/install-and-configure-ansible-tower-on-centos-rhel/
+
+https://docs.ansible.com/ansible-tower/latest/html/userguide/import_license.html?extIdCarryOver=true&sc_cid=701f2000001OH6uAAG#obtain-sub-manifest
+
+
+ami-08afb9d55a5dbd657 - Rhel 8
+ami-002070d43b0a4f171 - centos 7
