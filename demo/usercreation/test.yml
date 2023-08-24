@@ -1,0 +1,13 @@
+---
+- hosts: webservers
+  become: true
+  become_user: root
+  vars:
+    userid: adabas
+  tasks:
+  - name: User Exist
+    shell: id {{ userid }}
+    register: user_exist
+  - name: echo
+    debug:
+     msg: "{{ user_exist.stdout }}"

@@ -1,0 +1,11 @@
+---
+- hosts: all
+  become: true
+  become_user: root
+  vars:
+   grpnme: oracle
+   gidnum: 
+  tasks:
+    - name: Group Add Tasks
+      group: name={{grpnme}} gid={{gidnum}} state=present
+

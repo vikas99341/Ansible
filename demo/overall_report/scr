@@ -1,0 +1,2 @@
+ansible-playbook overall_new.yml -K
+ansible abcz -m shell -a "sh /tmp/tecmint_monitor.sh"

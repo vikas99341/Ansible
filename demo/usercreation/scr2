@@ -19,6 +19,5 @@ read sgrpnm
 echo -e $BIPurple'Enter comments for User' $NORMAL
 read cmmts
 cat usercr1.yml | sed "s/usernme/$usernme/g"| sed "s/usrid/$usrid/g" | sed "s/pgrnm/$grpid/g"| sed "s/cmmts/$cmmts/g" | sed "s/sgrnms/$sgrpnm/g" | sed "s~hmg~$hme~g" > usercr2.yml
-ansible-playbook usercr2.yml 
-sleep 5
-
+ansible-playbook usercr2.yml -K
+sleep 20

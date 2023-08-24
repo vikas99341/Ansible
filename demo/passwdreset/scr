@@ -6,4 +6,6 @@ echo "Copy and paste the encrypted password below & press contrl D"
 cat > /tmp/pss
 pss=`cat /tmp/pss`
 cat usercr1.yml| sed "s/usernme/$usr/g" | sed "s~psw~$pss~" > usercr2.yml
-ansible-playbook usercr2.yml
+ansible-playbook usercr2.yml -K
+sleep 15
+

@@ -1,0 +1,17 @@
+---
+- hosts: all
+  become: true
+  become_user: root
+  tasks:
+   - name: Check Service Status
+     shell: systemctl status vsftpd
+     register: output
+     when: ansible_distribution == "RedHat" and ansible_distribution_major_version == '7'
+     ignore_errors: true
+   - debug: var=output.stdout_lines
+   - name: Check Service Status
+     shell: /etc/init.d/vsftpd status
+     register: output1
+     ignore_errors: true
+     when: ansible_distribution == "RedHat" and ansible_distribution_major_version == '6' and and ansible_distribution_major_version == '5'
+   - debug: var=output1.stdout_lines  

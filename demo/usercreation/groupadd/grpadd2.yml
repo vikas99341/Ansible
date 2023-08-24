@@ -1,5 +1,5 @@
 ---
-- hosts: test-server
+- hosts: all
   become: true
   become_user: root
   vars:
@@ -8,3 +8,4 @@
   tasks:
     - name: Group Add Tasks
       group: name={{grpnme}} gid={{gidnum}} state=present
+

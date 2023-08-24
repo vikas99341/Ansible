@@ -1,15 +1,15 @@
 ---
-- hosts: test-server
+- hosts: myprod
   become: true
   become_user: root
   vars:
     password: $6$2u.MW22rkemc1XqT$c7GqRxtGZ9s1d5on7wyiThhEguGgctoLW.X2CZS21Etgea2.l0UnU8YxDm2/uhSiVatSUwa0yhzyXxbzSAOXC/
-    userid: 1005
-    sgrp: ansadmin
-    comments: dev user
-    username: vikas
-    pgrp: ansadmin
-    hme: 
+    userid: 595
+    sgrp: 
+    comments: Uix Lead
+    username: jeevan
+    pgrp: 
+    hme: /home/jeevan2
   tasks:
   - name: User Exist
     shell: id {{ username }}
@@ -24,3 +24,4 @@
     register: usercreation
   - debug: msg="User Name {{ username }} has been created on {{ ansible_hostname }}"
     when: usercreation.changed
+

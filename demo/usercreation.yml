@@ -1,0 +1,14 @@
+---
+- hosts: webservers
+  become: true
+  become_user: root
+  vars:
+   password: redhat
+   usernme: unix123
+   userid: 598
+   comments: Unix Admin
+   pgrp: unixadm
+   sgrp: abc,def
+  tasks:
+   - name: User Creation
+     user: name={{usernme}} uid={{userid}} comment={{comments}} password={{password}} group={{pgrp}} groups={{sgrp}} 

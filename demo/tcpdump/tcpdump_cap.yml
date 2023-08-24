@@ -1,0 +1,19 @@
+---
+- hosts: Apache.techno.com
+  become: true
+  become_user: root
+  tasks:
+    - name: Executing of tcpdump
+      shell: tcpdump -c 200 -i eno16777736; tcpdump -G 5 -W 1 -w /tmp/0001.pcap -i eno16777736
+      register: output
+    - debug: msg="{{ output.stdout_lines }}"
+    - debug: msg="{{ output.stderr }}"
+    - name: Fetching the packets
+      fetch:
+        src: /tmp/0001.pcap
+        dest: /etc/ansible/demo/tcpdump/details/packets-{{ inventory_hostname }}.details
+        flat: yes
+        register: output
+    - debug: msg="Please check the output in /etc/ansible/demo/tcpdump/details"
+      when: output.rc == 0 
+      

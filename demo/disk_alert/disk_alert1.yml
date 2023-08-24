@@ -1,5 +1,5 @@
 ---
-- hosts: test-server
+- hosts: patching
   become: true
   become_user: root
   tasks:
@@ -16,4 +16,4 @@
        - { src: 'Failed_Disks', dest: 'Failed_Disks' }
        - { src: 'sys_err', dest: 'sys_err' }
     - debug:
-       msg: "Dsik Alert reports has been copied to /etc/ansible/demo/disk_alert/details"
+       msg: "Dsik Alert reports has been copied to /etc/ansible/demo/disk_alert/details" 

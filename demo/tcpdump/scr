@@ -1,0 +1,13 @@
+echo -e "Please Enter the Server Name"
+read srv
+#ansible $srv -m command -a "/usr/sbin/ifconfig"
+ansible $srv -m shell -a "A=`cat /etc/redhat-release |awk '{print $7}' | cut -d "." -f1`; if [ $A -eq 6 -o $A -eq 5 ]; then "/usr/sbin/ifconfig" ; else "/sbin/ifconfig"; fi"
+if [ $? = 0 ];
+then
+echo -e "Please select the network interface from the above output to capture the packets"
+read intrf
+echo -e "Please specify the time interval in seconds, you want to capture the packets"
+read tme
+cat pre_valid_scr.yml | sed "s/intf/$intrf/g" | sed "s/tmm/$tme/g" | sed "s/abcz/$srv/g"   > tcpdump_cap.yml
+ansible-playbook tcpdump_cap.yml -K
+fi

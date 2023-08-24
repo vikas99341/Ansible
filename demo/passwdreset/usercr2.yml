@@ -1,0 +1,22 @@
+---
+- hosts: myprod
+  become: true
+  become_user: root
+  vars:
+    password: $6$rounds=656000$NW3VW/ZZv7D1zEJE$ZZ/nlentWlbwjGOc8En5v1x2MkL4OdC9x3eQ9z.26a9HTv6fiO8JPKQKpqdN4KkZ6A9CKhSzAguNwEZM1pOPP.
+    userid: usrid
+    username: adabas
+  tasks:
+  - name: User Exist
+    shell: id {{ username }}
+    register: user_exist
+    ignore_errors: yes
+  - debug: msg="User Name {{ username }} is not existing  on {{ ansible_hostname }}"
+    when: user_exist.rc != 0
+  - name: Password Reset
+    user: name={{ username }} update_password=always password={{ password }}
+    when: user_exist.rc == 0
+    register: usercreation
+  - debug: msg="Password has been reset for user {{ username }} on {{ ansible_hostname }}"
+    when: usercreation.changed
+

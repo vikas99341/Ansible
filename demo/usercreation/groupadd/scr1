@@ -1,0 +1,7 @@
+#!/bin/bash
+echo -e "Please Enter the Group Name"
+read grpnme
+echo -e "Please Enter the Group ID"
+read gidnum
+cat grpadd2.yml | sed "s/abcd/$grpnme/g" | sed "s/gidvalue/$gidnum/g" > grpadd1.yml
+ansible-playbook grpadd1.yml -K -C

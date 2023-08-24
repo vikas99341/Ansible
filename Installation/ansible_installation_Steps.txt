@@ -1,0 +1,123 @@
+Ansible Installation
+====================
+
+## RHEL/CentOS 7 64-Bit ##
+# wget http://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
+# rpm -ivh epel-release-latest-7.noarch.rpm
+
+## RHEL/CentOS 6 32-Bit ##
+# wget http://dl.fedoraproject.org/pub/epel/6/i386/epel-release-6-8.noarch.rpm
+# rpm -ivh epel-release-6-8.noarch.rpm
+## RHEL/CentOS 6 64-Bit ##
+# wget http://dl.fedoraproject.org/pub/epel/6/x86_64/epel-release-6-8.noarch.rpm
+# rpm -ivh epel-release-6-8.noarch.rpm
+
+# yum install epel-release 
+
+How Do I Verify EPEL Repo?
+
+You need to run the following command to verify that the EPEL repository is enabled. Once you ran the command you will see epel repository.
+
+# yum repolist
+
+# yum install python2-pip
+
+# pip install --upgrade pip
+
+# pip install ansible
+
+# ansible --version
+ 
+/usr/bin/ansible --version
+ansible 2.6.2
+  config file = None  ==> missing
+  configured module search path = [u'/root/.ansible/plugins/modules', u'/usr/share/ansible/plugins/modules']
+  ansible python module location = /usr/lib/python2.7/site-packages/ansible
+  executable location = /usr/bin/ansible
+  python version = 2.7.5 (default, Oct 11 2015, 17:47:16) [GCC 4.8.3 20140911 (Red Hat 4.8.3-9)]
+
+# cd /tmp
+
+# wget https://raw.githubusercontent.com/ansible/ansible/devel/examples/ansible.cfg
+
+# mkdir /etc/ansible
+
+# cp- p /tmp/ansible.cfg /etc/ansible
+
+# cd /etc/ansible
+
+# touch hosts
+
+# chmod 777 hosts
+
+
+=================
+=================
+
+Create a normal user control node and all your managed hosts as well
+
+From Control Node:
+
+# useradd sverma
+# passwd sverma
+# su - sverma
+
+Create the same users for all the managed hosts and also create .ssh at user's home directory
+
+# useradd sverma
+# passwd sverma
+# su - sverma
+# mkdir .ssh
+# chmod 700 .ssh
+
+Create password less authentication
+
+# login to control node as sverma
+# ssh-keygen
+# ls -ltrd
+# cd .ssh
+# scp -p id_rsa.pub client1.example.com:/home/sverma/.ssh/authorized_keys
+# scp -p id_rsa.pub client2.example.com:/home/sverma/.ssh/authorized_keys
+# scp -p id_rsa.pub client3.example.com:/home/sverma/.ssh/authorized_keys
+
+Verify your access, it should be password less from your control node to all your managed hosts
+
+===============
+===============
+
+From Control Node:
+
+# su - sverma
+# vi /etc/ansible/hosts
+[testing]
+client1.example.com
+client2.example.com
+client3.example.com
+
+ansible -m command -a "uptime" testing
+
+==============
+==============
+
+
+For Administrative commands where it requires admin rights
+
+From managed hosts
+
+login to client1.example.com
+
+visudo
+sverma  ALL=(ALL)  PASSWD: ALL
+
+Same for all the managed hosts
+
+ansible -m command -a "lvdisplay" testing --become -K
+
+==============
+==============
+ 
+
+
+
+
+

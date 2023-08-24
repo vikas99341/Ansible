@@ -1,5 +1,5 @@
 ---
-- hosts: test-server
+- hosts: myenv
   become: true
   become_user: root
   tasks:
@@ -18,3 +18,4 @@
         register: output
         ignore_errors: yes
         flat: yes
+

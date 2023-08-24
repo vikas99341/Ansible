@@ -52,26 +52,26 @@ fi
 #if [[ ! -z $AB ]];
 #then
 #uuencode $pth/Non_mirrored_lvols $pth/Non_mirrored_lvols > /tmp/mail.out
-#mailx -s "Non_Mirrored_Lvols" sverma55@csc.com < /tmp/mail.out
+#mailx -s "Non_Mirrored_Lvols" Vikas@csc.com < /tmp/mail.out
 #fi
 #CD=`cat Failed_Disks`
 #if [[ ! -z $CD ]];
 #then
 #uuencode $pth/Failed_Disks $pth/Failed_Disks > /tmp/mail1.out
-#mailx -s "Failed_Disks Alert" sverma55@csc.com < /tmp/mail1.out
+#mailx -s "Failed_Disks Alert" Vikas@csc.com < /tmp/mail1.out
 #fi
 #EF=`cat sys_err`
 #if [[ ! -z $EF ]];
 #then
 #uuencode $pth/sys_err $pth/sys_err > /tmp/mail2.out
-#mailx -s "Failed Disk Alerts on Syslog" sverma55@csc.com < /tmp/mail2.out
+#mailx -s "Failed Disk Alerts on Syslog" Vikas@csc.com < /tmp/mail2.out
 #ll sys_err
 #fi
 #FG=`cat Stale_lvols`
 #if [[ ! -z $FG ]];
 #then
 #uuencode $pth/Stale_lvols $pth/Stale_lvols > /tmp/mail3.out
-#mailx -s "Failed Disk Alerts on Syslog" sverma55@csc.com < /tmp/mail3.out
+#mailx -s "Failed Disk Alerts on Syslog" Vikas@csc.com < /tmp/mail3.out
 #ll Stale_lvols
 #fi
 chmod 777 $pth/Failed_Disks
@@ -138,4 +138,3 @@ chmod 777 $pth/sys_err
 fi
 
 fi
-

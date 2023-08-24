@@ -1,5 +1,5 @@
 ---
-- hosts: scr24_new.sh-server
+- hosts: myenv
   become: true
   become_user: root
   tasks:
@@ -14,7 +14,8 @@
     - name: Fetching the User Details
       fetch:
         src: /tmp/cscdxc1155
-        dest: /etc/ansible/demo/usercreation/userdetails/details/vikas-{{ inventory_hostname }}
+        dest: /etc/ansible/demo/usercreation/userdetails/details/adabas-{{ inventory_hostname }}
         register: output
         ignore_errors: yes
         flat: yes
+

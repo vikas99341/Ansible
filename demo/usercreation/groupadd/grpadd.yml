@@ -8,3 +8,4 @@
   tasks:
     - name: Group Add Tasks
       group: name={{grpnme}} gid={{gidnum}} state=present
+

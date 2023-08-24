@@ -1,0 +1,26 @@
+---
+- hosts: mytest
+  become: true
+  become_user: root
+  vars:
+    password: $6$2u.MW22rkemc1XqT$c7GqRxtGZ9s1d5on7wyiThhEguGgctoLW.X2CZS21Etgea2.l0UnU8YxDm2/uhSiVatSUwa0yhzyXxbzSAOXC/
+    userid: 
+    sgrp: 
+    comments: 
+    username: adabas
+    pgrp: 
+    hme: 
+  tasks:
+  - name: User Exist
+    shell: id {{ username }}
+    register: user_exist
+    ignore_errors: yes
+  - debug: msg="User Name {{ username }} is already existing on the {{ ansible_hostname }}"
+    when: user_exist.rc == 0  
+
+  - name: User Creation
+    user: name={{ username }} uid={{ userid }} home={{ hme }} comment={{ comments }} password={{ password }} group={{pgrp}} groups={{ sgrp }} append=yes
+    when: user_exist.rc != 0 and ansible_distribution == "RedHat"
+    register: usercreation
+  - debug: msg="User Name {{ username }} is creation on {{ ansible_hostname }}"
+    when: usercreation.changed

@@ -1,0 +1,13 @@
+---
+- hosts: Server2.example.com
+  become: true
+  become_user: root
+  tasks:
+  - name: Add Entry in Sudoers file
+    lineinfile:
+      path: /etc/sudoers
+      state: present
+      backup: yes
+      line: '%ADMIN123 ALL=(ALL) NOPASSWD: ALL'
+      validate: '/usr/sbin/visudo -cf %s'
+

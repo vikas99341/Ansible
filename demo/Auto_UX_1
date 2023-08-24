@@ -1,0 +1,285 @@
+#!/bin/bash
+#"This script is created by Vikas (Vikas)"
+BIRed='\033[1;91m'        # Red
+BIGreen='\033[1;92m'      # Green
+BIYellow='\033[1;93m'     # Yellow
+BIBlue='\033[1;94m'       # Blue
+BIPurple='\033[1;95m'     # Purple
+BICyan='\033[1;96m'       # Cyan
+NORMAL="\033[0;39m"
+try="Yes"
+target="None"
+my_head()
+{
+
+        echo -e "-------------------------------------------------------------------------------------------------------------------------------------------"
+        echo -e " Automation Tool to automate day to day Unix Tasks!!\c"
+        echo -e "\tTrial=$try \c"
+        echo -e "\tTarget Servers : $target"
+        echo -e "-------------------------------------------------------------------------------------------------------------------------------------------"
+}
+while true
+do
+        my_head
+        echo -e " 1.  Pre-validation (To capture pre-change configurations details) \n "
+        echo -e " 2.  Usercreation (Linux/Solaris/HP-UX)Servers \n "
+        echo -e " 3.  FileSystem Threshold Alert \n "
+        echo -e " 4.  Run Ad Hoc Commands \n "
+        echo -e " 5.  Services \n "
+        echo -e " 22. Options  \n "
+        echo -e " 0.  Exit      \n "
+        echo -e " Enter your Choice : \c"
+        read cho
+        case $cho in
+
+        0)
+               break
+               ;;
+        1)    
+                if [ $target  = "None" ] ; then
+                        echo -e "Select Target Servers from Option 22"
+                        read dummy
+                else
+                        if [ $try  = "Yes" ] ; then
+                               cd /etc/ansible/demo/prevalidation
+                               cat pre_valid_scrtry.yml | sed "s/abcz/$target/g" > pre_valid_scrtry1.yml
+                               ansible-playbook pre_valid_scrtry1.yml -K -C 
+                else
+                               cd /etc/ansible/demo/prevalidation
+                               cat pre_valid_scr.yml | sed "s/abcz/$target/g" > pre_valid_scr.yml1
+                               ansible-playbook pre_valid_scr.yml1 -K
+                       fi
+                fi
+                ;;
+  
+        2)
+                if [ $target  = "None" ] ; then
+                        echo -e "Select Target Servers from Option 22"
+                        read dummy
+                else
+                        if [ $try  = "Yes" ] ; then
+                                cd /etc/ansible/demo/usercreation
+                                cat usercr.yml | sed "s/abcz/$target/g" > usercr_try.yml
+                                ./scr1
+                        else
+                                cd /etc/ansible/demo/usercreation
+                                cat usercr.yml | sed "s/abcz/$target/g" > usercr1.yml
+                                ./scr2
+                        fi
+                fi
+                ;;
+        3)
+                if [ $target  = "None" ] ; then
+                        echo -e "Select Target Servers from Option 22"
+                        read dummy
+                else
+                        if [ $try  = "Yes" ] ; then
+                                ansible-playbook start.yml     --ask-pass --sudo  --extra-vars "host_list=$target" -C
+                        else
+                                ansible-playbook start.yml     --ask-pass --sudo  --extra-vars "host_list=$target"
+                        fi
+                fi
+                ;;
+        4)
+                if [ $target  = "None" ] ; then
+                        echo -e "Select Target Servers from Option 22"
+                        read dummy
+                else
+                        if [ $try  = "Yes" ] ; then
+                                cd /etc/ansible/demo/copyrunscrpt
+                                cat copy_run_scr.yml | sed "s/abcz/$target/g" > copy_run_scr_new.yml
+                                cat copy_run_norm_scr.yml  | sed "s/abcz/$target/g" > copy_run_norm_scr_new.yml
+                                ./scr3
+                        else
+                                cd /etc/ansible/demo/copyrunscrpt
+                                cat copy_run_scr.yml | sed "s/abcz/$target/g" > copy_run_scr_new.yml
+                                cat copy_run_norm_scr.yml  | sed "s/abcz/$target/g" > copy_run_norm_scr_new.yml
+                                ./scr2
+                        fi
+                fi
+                ;;
+        5)  
+               if [ $target  = "None" ] ; then
+                      echo -e "Select Target Servers from Option 22"
+                      read dummy
+               else
+                      if [ $try  = "Yes" -o $try  = "No"  ] ; then
+               while true
+               do
+                      echo -e " 1. Service Start \n "
+                      echo -e " 2. Serice Stop \n "
+                      echo -e " 3. Service Enabled \n "
+                      echo -e " 4. Service Disabled \n "
+                      echo -e " 0. Exit \n "
+                      echo -e " Enter your Choice : \c"
+                      read cho
+                      case $cho in
+                    
+                      0)
+                              break
+                              ;;
+                      1)
+                      echo -e " a. FTP Services \n "
+                      echo -e " b. NFS Service \n "
+                      echo -e " c. HTTPD Service \n"
+                      echo -e " 0. Exit \n"
+                      echo -e " Enter your Choice : \c"
+                      read cho
+                      case $cho in
+                   
+                      0)
+                              break
+                              ;;
+                      a)
+                      ansible -m service -a "name=vsftpd state=started" --extra-vars "host_list=$target" -K
+                              ;;
+                      b)
+                      ansible -m service -a "name=nfs state=started" --extra-vars "host_list=$target" -K
+                              ;;
+                      c)
+                      ansible -m service -a "name=httpd state=started" --extra-vars "host_list=$target" -K
+                             ;;
+                      *)
+                      echo -e "Wrong Choice !!!!"
+                      read dummy
+                      continue
+                      ;;
+                      esac
+                      ;; 
+                      2)
+                      echo -e " a. FTP Services \n "
+                      echo -e " b. NFS Service \n "
+                      echo -e " c. HTTP Service \n "
+                      echo -e " 0. Exit \n"
+                      echo -e " Enter your Choice : \c"
+                      read cho
+                      case $cho in
+
+                      0)
+                              break
+                              ;;
+                      a)
+                      ansible -m service -a "name=vsftpd state=stopped" --extra-vars "host_list=$target" -K
+                      ;;
+                      b)
+                      ansible -m service -a "name=nfs state=stopped" --extra-vars "host_list=$target" -K
+                      ;;
+                      c)
+                      ansible -m service -a "name=httpd state=stopped" --extra-vars "host_list=$target" -K
+                      ;; 
+                      *)
+                      echo -e "Wrong Choice !!!!"
+                      read dummy
+                      continue
+                      ;;
+                      esac
+                      ;;
+                      3)
+                      echo -e " a. FTP Services \n "
+                      echo -e " b. NFS Service \n "
+                      echo -e " c. HTTP Service \n "
+                      echo -e " 0. Exit \n"
+                      echo -e " Enter your Choice : \c"
+                      read cho
+                      case $cho in
+                      0)
+                              break
+                              ;;
+                      a)
+                      ansible -m service -a "name=vsftpd state=enabled" --extra-vars "host_list=$target" -K
+                      ;; 
+                      b)
+                      ansible -m service -a "name=nfs state=enabled" --extra-vars "host_list=$target" -K
+                      ;;
+                      c)
+                      ansible -m service -a "name=httpd state=enabled" --extra-vars "host_list=$target" -K
+                      ;;
+                      *)
+                      echo -e "Wrong Choice !!!!"
+                      read dummy
+                      continue
+                      ;;
+                      esac
+                      ;;
+                      4)
+                      echo -e " a. FTP Services \n "
+                      echo -e " b. NFS Service \n "
+                      echo -e " c. HTTP Service \n "
+                      echo -e " 0. Exit \n"
+                      echo -e " Enter your Choice : \c"
+                      read cho
+                      case $cho in
+                      0)
+                              break
+                              ;;
+                      a)
+                      ansible -m service -a "name=vsftpd state=disabled" --extra-vars "host_list=$target" -K
+                      ;;
+                      b)
+                      ansible -m service -a "name=nfs state=disabled" --extra-vars "host_list=$target" -K
+                      ;;
+                      c)
+                      ansible -m service -a "name=httpd state=disabled" --extra-vars "host_list=$target" -K
+                      ;;
+                      *)
+                      echo -e "Wrong Choice !!!!"
+                      read dummy
+                      continue
+                      ;;
+                      esac
+                      ;;
+                      *)
+                      echo -e "Wrong Choice !!!!
+                      read dummy
+                      continue
+                     ;;
+              esac
+              done
+                 fi
+           fi
+          ;;
+        22)
+                while true
+                do
+                        my_head
+                        echo -e " 1.  Trial : $try "
+                        echo -e " 2.  Target Servers \n "
+                        echo -e " 0.  Exit      \n "
+                        echo -e " Enter your Choice : \c"
+                        read cho
+                        case $cho in
+
+                        0)
+                                break
+                                ;;
+                        1)
+                                if [ $try  = "Yes" ] ; then
+                                        try="No"
+                                else
+                                        try="Yes"
+                                fi
+                                ;;
+                        2)
+                                echo -e ----------------------------------------------------------------------------
+                                echo -e "Available Env :  All -> for All Server in this Env or Host IP "
+                                cat /etc/ansible/hosts  | grep "\[" | sed "s/\[/ /g"  |  sed "s/\]/ /g"
+                                echo -e ----------------------------------------------------------------------------
+                                echo -e " Enter your Choice : \c"
+                                read target
+                                ;;
+
+                        *)
+                                echo -e "Wrong Choice !!!!"
+                                read dummy
+                                continue
+                                ;;
+                        esac
+                done
+                ;;
+                       *)
+                               echo -e "Wrong Choice !!!!"
+                               read dummy
+                               continue
+                               ;;
+                        esac
+                done

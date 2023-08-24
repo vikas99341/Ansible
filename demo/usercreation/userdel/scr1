@@ -1,4 +1,5 @@
 echo -e "Please Enter the User Name"
 read user
 cat usercr_new.yml | sed "s/usernme/$user/g" > usercr1.yml
-ansible-playbook usercr1.yml
+ansible-playbook usercr1.yml -K
+sleep 20

@@ -24,3 +24,4 @@
     register: usercreation
   - debug: msg="User Name {{ username }} has been created on {{ ansible_hostname }}"
     when: usercreation.changed
+

@@ -1,12 +1,14 @@
 ---
-- hosts: test-server
+- hosts: myenv
+  become: true
+  become_user: root
   tasks:
     - name: Transfer the script
       copy: src=/tmp/test dest=/tmp/test mode=0777
       register: result_copy
 
-
     - name: Execute the script and verification script
-      command: sh /tmp/test
+      script: /tmp/test
       register: result_run
     - debug: var=result_run.stdout_lines
+

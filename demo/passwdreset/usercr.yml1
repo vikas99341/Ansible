@@ -1,0 +1,24 @@
+---
+- hosts: abcz
+  become: true
+  become_user: root
+  vars:
+    password: $6$rounds=656000$fdV3EUW.PmlccVzE$r1OS8tk3Djkn31zqOtR9OUk0m4yCpxvbEMzSDYhWVJwwIbGmPYbvy7PfMz4RFMTc3j/BTS69p7nSVfqxymivw/
+    userid: usrid
+    sgrp: sgrnms
+    comments: cmmts
+    username: usernme
+    pgrp: pgrnm
+    hme: hmg
+  tasks:
+  - name: User Exist
+    shell: id {{ username }}
+    register: user_exist
+    ignore_errors: yes
+  - name: User Creation
+    user: name={{ username }} uid={{ userid }} home={{ hme }} comment={{ comments }} password={{ password }} group={{pgrp}} groups={{ sgrp }} append=yes
+    when: user_exist.rc != 0 and ansible_distribution == "RedHat"
+    register: user_creation
+  - debug: msg="User Name {{ username }} is already existing on the {{ ansible_hostname }}"
+    when: user_exist.rc == 0
+

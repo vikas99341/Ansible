@@ -10,3 +10,4 @@
       backup: yes
       line: 'mssg'
       validate: '/usr/sbin/visudo -cf %s'
+

@@ -19,3 +19,4 @@
     register: usercreation
   - debug: msg="Password has been reset for user {{ username }} on {{ ansible_hostname }}"
     when: usercreation.changed
+

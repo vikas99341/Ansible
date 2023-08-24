@@ -1,0 +1,141 @@
+#"This script is created by Vikas (Vikas)"
+BIRed='\033[1;91m'        # Red
+BIGreen='\033[1;92m'      # Green
+BIYellow='\033[1;93m'     # Yellow
+BIBlue='\033[1;94m'       # Blue
+BIPurple='\033[1;95m'     # Purple
+BICyan='\033[1;96m'       # Cyan
+NORMAL="\033[0;39m"
+#echo "Operations Scripts NWR Unix">/tmp/banner.txt
+clear
+#for i in `cat /tmp/banner.txt`
+#do
+#banner "$i"
+#done
+#rm /tmp/banner.txt
+echo -e $BIPurple"##################################################################" $NORMAL
+echo -e $BIBlue"Scripts used to automate day to day Unix Tasks for NWR Account" $NORMAL
+echo -e $BIBlue"Written by Vikas, NWR CSC Unix team (Vikas)" $NORMAL
+echo -e $BIPurple"##################################################################" $NORMAL
+
+echo -e $BIPurple"Please select your choice From below menu"
+echo "1). Pre-validation (To capture pre-change configurations details)  "
+echo "2). Usercreation Scripts for all NWR Servers (Linux/Solaris/HP-UX) Servers"
+echo "3). User deletion Script, Maximum 10 User Accounts can be deleted simultaneously"
+echo "4). User disable Script, Maximum 10 User Accounts can be disabled Simultaneously"
+echo "5). Passwd Reset Script for NWR Unix Servers"
+echo "6). Top Ten Processes consuming high CPU/Memory for NWR Unix Servers"
+echo "7). FileSystem Threshold Alert Scripts for NWR Unix Servers"
+echo "8). Execute any script or commands to "N" number of Unix Server"
+echo "9). To move any file or directory from Jump Start Server to "N" number of Unix Servers"
+echo "10).To copy any file or directory to Jump Start Server from "N" number of Unix Servers"
+echo "11).Scripts to get Complete User's details like Last login, Group Name etc"
+echo "12).Disk Alert Automation"
+echo "13).Service Status"
+echo "14).Exit"$NORMAL
+
+echo -e $BIRed"Please enter your selection : " $NORMAL
+read input
+############################################################
+case $input in
+1)
+cd /etc/ansible/demo/prevalidation
+clear
+echo -e $BIYellow"######################################################################" $NORMAL
+echo -e $BIGreen"Pre-validation (To capture pre-change configurations details)#########" $NORMAL
+echo -e $BIYellow"######################################################################" $NORMAL
+ansible-playbook pre_valid_scr.yml -K
+;;
+2)
+cd /etc/ansible/demo/usercreation
+echo -e $BIYellow"######################################################################" $NORMAL
+echo -e $BIGreen"Usercreation Scripts for all NWR Servers (Linux/Solaris/HP-UX) Servers" $NORMAL
+echo -e $BIYellow"######################################################################" $NORMAL
+./scr1
+;;
+3)
+cd /var/opt/sec-reports/account_removal_multiple_user_final_Script
+./Script_Acc_Rem
+;;
+4)
+cd /var/opt/sec-reports/account_disable_script
+./Script_Acc_Rem
+;;
+5)
+cd /var/opt/sec-reports/passwdreset
+./passwdresetscript
+;;
+6)
+cd /var/opt/sec-reports/topprocmemlist
+./sec-reports
+;;
+7)
+cd /etc/ansible/demo/disk_threshold
+echo -e $BIYellow"######################################################################" $NORMAL
+echo -e $BIGreen"FileSystem Threshold Alert Scripts for NWR Unix Servers                " $NORMAL
+echo -e $BIYellow"######################################################################" $NORMAL
+ansible-playbook runscr.yml -K
+;;
+8)
+cd /etc/ansible/demo/copyrunscrpt
+echo -e $BIPurple"#####################################################################" $NORMAL
+echo -e $BIGreen"Execute any script or commands to N number of Unix Server" $NORMA
+echo -e $BIPurple"#####################################################################" $NORMAL
+./scr2
+;;
+9)
+cd /var/opt/sec-reports/copyfiledir
+./sec-reports
+;;
+10)
+cd /var/opt/sec-reports/copyfromdestser
+./sec-reports
+;;
+11)
+cd /var/opt/sec-reports/userdetails
+./sec-reports
+;;
+12)
+clear
+cd /etc/ansible/demo/disk_alert/
+echo -e $BIYellow"######################################################################" $NORMAL
+echo -e $BIGreen"#########################Disk Alert Automation########################" $NORMAL
+echo -e $BIYellow"######################################################################" $NORMAL
+ansible-playbook disk_alert.yml -K
+;;
+13)
+echo -e "Please select your choice from below menu"
+echo -e "a). FTP Service"
+echo -e "b). NFS Service"
+echo -e "c). Exit"
+echo -e "Please enter your selection :            "
+read input
+################################################
+case $input in
+a)
+cd /etc/ansible/demo/check_service_status
+ansible-playbook ser1.yml -K
+;;
+b)
+echo "NFS is running"
+;;
+c)
+exit
+;;
+*)
+ echo "Invalid input , Please enter correct choice "
+;;
+esac
+;;
+14)
+exit
+;;
+*)
+  echo "Invalid input , Please enter correct choice "
+;;
+esac
+##################################################
+#
+#######################################################
+
+

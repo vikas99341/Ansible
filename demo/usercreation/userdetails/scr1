@@ -12,5 +12,5 @@ cat scr24.sh | sed "s/unme/$usr/g" > scr24_new.sh
 mv scr24_new.sh /tmp
 chmod 777 /tmp/scr24_new.sh
 cat copy_run.yml | sed "s~test~scr24_new.sh~g"|sed "s/unme/$usr/g" > copy_run_scr1.yml
-ansible-playbook copy_run_scr1.yml
+ansible-playbook copy_run_scr1.yml -K
 echo -e $BIPurple"User details has been copied '/etc/ansible/demo/usercreation/userdetails/details'"$NORMAL

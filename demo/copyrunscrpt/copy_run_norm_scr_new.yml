@@ -1,5 +1,5 @@
 ---
-- hosts: test-server
+- hosts: myenv
   tasks:
     - name: Transfer the script
       copy: src=/tmp/test dest=/tmp/test mode=0777

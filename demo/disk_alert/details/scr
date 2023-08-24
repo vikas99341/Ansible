@@ -1,0 +1,12 @@
+#!/bin/bash
+pth=`pwd`
+ls | grep -v scr | grep -v test|  while read j
+do
+if [ -s $j ];
+then
+ls -ltr $j
+(cat test;uuencode $j $j)|mail -s "Disk Alert-$j" Vikas@csc.com
+#mailx -s "Disk Alert-$j" Vikas@csc.com < /tmp/mail.out
+fi
+done
+

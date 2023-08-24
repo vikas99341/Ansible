@@ -1,0 +1,12 @@
+---
+- hosts: mytest
+  become: true
+  become_user: root
+  tasks:
+  - name: User Removal Task
+    user: name=adabas state=absent remove=yes
+    register: userremoval
+  - debug: msg="User has been removed from {{ ansible_hostname }}"
+    when: userremoval.changed
+  - debug: var=userremoval verbosity=2
+    

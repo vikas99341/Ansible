@@ -1,0 +1,15 @@
+---
+- hosts: myenv
+  become: true
+  become_user: root
+  tasks:
+    - name: Executing of Pre-Validation Scripts
+      script: /etc/ansible/demo/prevalidation/prevalid_scr.sh
+      register: output
+    - name: Fetching the Inventory Report
+      fetch:
+       src: /tmp/details.txt
+       dest: /etc/ansible/demo/prevalidation/details/prevalidation-{{ inventory_hostname }}
+       flat: yes
+    - debug:
+       msg: "Pre-validation reports has been copied to /etc/ansible/demo/prevalidation/details" 
