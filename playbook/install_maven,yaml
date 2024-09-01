@@ -1,0 +1,18 @@
+---
+ - hosts: test-server
+   become: yes
+
+   tasks:
+   - name: Download Maven
+     get_url:
+        url: https://dlcdn.apache.org/maven/maven-3/3.9.9/binaries/apache-maven-3.9.9-bin.tar.gz
+        dest: /tmp/apache-maven-3.9.9-bin.tar.gz
+   - name: Extract Maven
+     unarchive:
+        src: /tmp/apache-maven-3.9.9-bin.tar.gz
+        dest: /usr/local/bin
+        remote_src: yes
+   - name: Make Trivy executable
+     file:
+        path: /usr/local/bin/apache-maven-3.9.9
+        mode: '0755'
