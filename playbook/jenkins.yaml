@@ -1,0 +1,6 @@
+---
+- hosts: test-server
+  become: yes
+
+  roles:
+    - role: geerlingguy.jenkins
